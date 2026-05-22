@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>From First Encounter to Chronic Care</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:      #1a1a2e;
+    --mid:      #4a4a6a;
+    --light:    #8888aa;
+    --rule:     #e0e0ec;
+    --accent:   #2563eb;
+    --accent2:  #16a34a;
+    --warn:     #d97706;
+    --neg:      #dc2626;
+    --bg:       #fafaf8;
+    --card:     #ffffff;
+    --serif:    'DM Serif Display', Georgia, serif;
+    --sans:     'DM Sans', system-ui, sans-serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { font-size: 17px; scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-weight: 300;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Layout ── */
+  .page {
+    max-width: 740px;
+    margin: 0 auto;
+    padding: 0 28px 80px;
+  }
+
+  /* ── Header ── */
+  header {
+    padding: 40px 0 10px;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 40px;
+  }
+
+  .label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-family: var(--serif);
+    font-size: 2.4rem;
+    line-height: 1.2;
+    color: var(--ink);
+    margin-bottom: 12px;
+    max-width: 620px;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+    color: var(--mid);
+    font-weight: 300;
+    font-style: italic;
+    margin-bottom: 20px;
+    max-width: 600px;
+    line-height: 1.6;
+  }
+
+  .meta {
+    font-size: 0.85rem;
+    color: var(--light);
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+  }
+
+  .meta span { display: flex; align-items: center; gap: 6px; }
+
+  /* ── Abstract ── */
+  .abstract {
+    background: var(--card);
+    border-left: 3px solid var(--accent);
+    padding: 24px 28px;
+    margin-bottom: 48px;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.95rem;
+    color: var(--mid);
+    line-height: 1.8;
+  }
+
+  /* ── TOC ── */
+  nav.toc {
+    margin-bottom: 56px;
+    padding: 24px 28px;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+  }
+
+  nav.toc h3 {
+    font-family: var(--sans);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--light);
+    margin-bottom: 14px;
+  }
+
+  nav.toc ol {
+    list-style: none;
+    counter-reset: toc;
+    padding: 0;
+  }
+
+  nav.toc li {
+    counter-increment: toc;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 0.9rem;
+  }
+  nav.toc li:last-child { border-bottom: none; }
+
+  nav.toc a {
+    color: var(--ink);
+    text-decoration: none;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+  }
+  nav.toc a::before {
+    content: counter(toc, decimal-leading-zero);
+    font-size: 0.72rem;
+    color: var(--accent);
+    font-weight: 500;
+    flex-shrink: 0;
+  }
+  nav.toc a:hover { color: var(--accent); }
+
+  /* ── Sections ── */
+  section {
+    margin-bottom: 60px;
+    scroll-margin-top: 24px;
+  }
+
+  h2 {
+    font-family: var(--serif);
+    font-size: 1.65rem;
+    color: var(--ink);
+    margin-bottom: 20px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  h3 {
+    font-family: var(--sans);
+    font-size: 0.95rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    color: var(--accent);
+    text-transform: uppercase;
+    margin: 28px 0 10px;
+  }
+
+  p { margin-bottom: 16px; }
+
+  /* ── Research question box ── */
+  .rq-box {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 24px 28px;
+    margin: 24px 0;
+  }
+
+  .rq-primary {
+    font-family: var(--serif);
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--ink);
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  .rq-list {
+    list-style: none;
+    padding: 0;
+    border-top: 1px solid var(--rule);
+    padding-top: 14px;
+    margin: 0;
+  }
+
+  .rq-list li {
+    padding: 6px 0 6px 20px;
+    position: relative;
+    font-size: 0.92rem;
+    color: var(--mid);
+  }
+
+  .rq-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent);
+    font-size: 0.8rem;
+  }
+
+  /* ── Stat cards ── */
+  .stat-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin: 24px 0;
+  }
+
+  .stat-row.four { grid-template-columns: repeat(4, 1fr); }
+  .stat-row.two  { grid-template-columns: repeat(2, 1fr); }
+
+  .stat {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 18px 16px;
+    text-align: center;
+  }
+
+  .stat-num {
+    font-family: var(--serif);
+    font-size: 1.8rem;
+    color: var(--accent);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .stat-num.warn { color: var(--warn); }
+  .stat-num.pos  { color: var(--accent2); }
+  .stat-num.neg  { color: var(--neg); }
+
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--light);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* ── Tables ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 24px 0;
+    font-size: 0.88rem;
+  }
+
+  thead tr { border-bottom: 2px solid var(--ink); }
+
+  th {
+    text-align: left;
+    padding: 8px 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--mid);
+  }
+
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--rule);
+    color: var(--ink);
+  }
+
+  tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) td { background: #f7f7fb; }
+
+  td.pos  { color: var(--accent2); font-weight: 500; }
+  td.neg  { color: var(--neg);     font-weight: 500; }
+  td.warn { color: var(--warn);    font-weight: 500; }
+  td.dim  { color: var(--light); }
+  td.bold { font-weight: 500; }
+
+  /* ── Finding callouts ── */
+  .finding {
+    background: var(--card);
+    border-left: 3px solid var(--accent2);
+    padding: 16px 20px;
+    margin: 20px 0;
+    border-radius: 0 6px 6px 0;
+    font-size: 0.92rem;
+    color: var(--mid);
+  }
+
+  .finding.warn {
+    border-left-color: var(--warn);
+  }
+
+  .finding.alert {
+    border-left-color: var(--neg);
+  }
+
+  .finding strong {
+    display: block;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent2);
+    margin-bottom: 6px;
+  }
+
+  .finding.warn strong  { color: var(--warn); }
+  .finding.alert strong { color: var(--neg); }
+
+  /* ── Pipeline ── */
+  .pipeline {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 20px 24px;
+    margin: 20px 0;
+    font-size: 0.85rem;
+  }
+
+  .pipeline-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .pipeline-step:last-child { border-bottom: none; }
+
+  .step-num {
+    background: var(--accent);
+    color: white;
+    border-radius: 50%;
+    width: 22px;
+    height: 22px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.72rem;
+    font-weight: 500;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .step-body strong { display: block; color: var(--ink); font-weight: 500; }
+  .step-body span   { color: var(--mid); }
+
+  /* ── Recommendation blocks ── */
+  .rec-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin: 20px 0;
+  }
+
+  .rec-card {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 8px;
+    padding: 18px 20px;
+    font-size: 0.88rem;
+  }
+
+  .rec-card .rec-label {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+  }
+
+  .rec-card.min  .rec-label { color: var(--warn); }
+  .rec-card.opt  .rec-label { color: var(--accent2); }
+
+  .rec-card p { margin: 0; color: var(--mid); line-height: 1.6; }
+
+  /* ── Links ── */
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  /* ── Footer ── */
+  footer {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--rule);
+    font-size: 0.8rem;
+    color: var(--light);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  @media (max-width: 600px) {
+    h1 { font-size: 1.8rem; }
+    .stat-row, .stat-row.four { grid-template-columns: 1fr 1fr; }
+    .rec-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- Header -->
+  <header>
+    <h1>From First Encounter to Chronic Care</h1>
+    <p class="subtitle">A Multi-Level Analysis of Patient Utilization, Access Gaps, and Social Determinants in a Regional Health System</p>
+  </header>
+
+  <!-- Abstract -->
+  <div class="abstract">
+    Using Stormont Vail Health encounter records linked to patient demographics, provider geography, and social determinants, this analysis investigates what drives whether a patient who first visits the healthcare system ever returns. Three analytical threads are woven together: patient utilization patterns (who returns, by age and diagnosis); geospatial access gap mapping (where providers are sparse relative to demand); and social determinant profiling (which structural barriers cluster in underserved areas). Core findings show that age and diagnosis type are highly predictive of return (χ² p&nbsp;&lt;&nbsp;0.001), that 24 geographic clusters qualify as access gaps under HPSA standards, and that social burden is concentrated in the same areas where patients are least likely to continue care.
+  </div>
+
+  <!-- TOC -->
+  <nav class="toc">
+    <h3>Contents</h3>
+    <ol>
+      <li><a href="#intro">Introduction &amp; Research Questions</a></li>
+      <li><a href="#data">Data &amp; Pipeline</a></li>
+      <li><a href="#patterns">Patient Utilization Patterns</a></li>
+      <li><a href="#geo">Geospatial Access Gap Analysis</a></li>
+      <li><a href="#hyp">Hypothesis Testing</a></li>
+      <li><a href="#sdoh">Social Determinants as a Fragility Signal</a></li>
+      <li><a href="#recs">Recommendations</a></li>
+      <li><a href="#limits">Limitations</a></li>
+    </ol>
+  </nav>
+
+  <!-- 1. Introduction -->
+  <section id="intro">
+    <h2>1. Introduction &amp; Research Questions</h2>
+    <p>Longitudinal care — patients who return to the same health system after an initial encounter — is a foundational indicator of continuity and health system effectiveness. For a regional system like Stormont Vail Health (SVH) serving both urban Shawnee County and rural central Kansas, understanding who returns and who doesn't is not only a quality metric but a resource allocation question.</p>
+    <p>This analysis treats the "first encounter" as a decision point: given a patient's age, diagnosis category, and geographic location, what is the probability they become a longitudinal patient? It then maps where geographic provider gaps intersect with low return rates and high social burden, and offers concrete pathway recommendations.</p>
+
+    <div class="rq-box">
+      <p class="rq-primary">"For patients in the SVH system, what structural, demographic, and geographic factors predict whether a first clinical encounter leads to sustained longitudinal care?"</p>
+      <ul class="rq-list">
+        <li><strong>Utilization</strong> &mdash; Do age group and primary diagnosis type significantly predict multi-visit status?</li>
+        <li><strong>Geography</strong> &mdash; Which demand zones in the region lack sufficient provider coverage by HPSA standards?</li>
+        <li><strong>SDOH</strong> &mdash; Do social determinant burdens (transport, housing) cluster in access-gap areas, and does this explain low return rates?</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- 2. Data -->
+  <section id="data">
+    <h2>2. Data &amp; Pipeline</h2>
+    <p>Six tables were used from the DataFest dataset: encounters, patients, diagnosis, providers, social determinants, and TIGER census block group centroids. Analysis was conducted in Python (pandas, scipy, sklearn, folium) and R (overlakepark spatial pipeline).</p>
+
+    <h3>Data Pipeline</h3>
+    <div class="pipeline">
+      <div class="pipeline-step">
+        <div class="step-num">1</div>
+        <div class="step-body">
+          <strong>Patient classification</strong>
+          <span>Patients grouped into Single Visit (n=1 encounter) vs. Multiple Visits (n&gt;1). First observed encounter extracted per patient as the modeling anchor. Age bins derived from PatientBirthYearBin into six cohorts (Early Stage through 65+).</span>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="step-num">2</div>
+        <div class="step-body">
+          <strong>Diagnosis categorization</strong>
+          <span>ICD-10 GroupCode cleaned and reduced to first letter (chapter). Shawnee County (FIPS 201770) used as the primary analysis geography; ~48.9% of all multiple-visit encounters originate there.</span>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="step-num">3</div>
+        <div class="step-body">
+          <strong>Provider geocoding</strong>
+          <span>Provider office addresses geocoded via the Census Geocoder API (batch). 9,000-address chunks submitted; matched and Non_Exact results retained. Specialty type and most common ICD-10 chapter per provider added for mapping context.</span>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="step-num">4</div>
+        <div class="step-body">
+          <strong>DBSCAN clustering + gap flagging</strong>
+          <span>Population-weighted DBSCAN (ε=0.05, minPts=10, coords in degrees) run on census block centroids. Cluster-level population estimated by summing weighted rows. Clusters with population ≥5,000 retained; providers assigned to nearest cluster via BallTree KNN. Clusters exceeding 3,500 population per provider (HPSA threshold) flagged as access gaps.</span>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <div class="step-num">5</div>
+        <div class="step-body">
+          <strong>SDOH profiling</strong>
+          <span>Social determinants screener data cleaned and matched to patients by DurableKey. Domain-level risk flags derived: transportation (any "Yes"), housing instability (homelessness / 2+ moves), financial strain, utilities hardship, stress, physical activity. Patient-level burden score = sum of flagged domains.</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="stat-row four">
+      <div class="stat"><div class="stat-num">947K</div><div class="stat-label">Total patients</div></div>
+      <div class="stat"><div class="stat-num">48.9%</div><div class="stat-label">Multi-visit in Shawnee Co.</div></div>
+      <div class="stat"><div class="stat-num">41</div><div class="stat-label">DBSCAN clusters</div></div>
+      <div class="stat"><div class="stat-num">6.8%</div><div class="stat-label">SDOH screened</div></div>
+    </div>
+  </section>
+
+  <!-- 3. Patient Patterns -->
+  <section id="patterns">
+    <h2>3. Patient Utilization Patterns</h2>
+    <p>Shawnee County comprises approximately 48.9% of all multiple-visit encounters in the SVH system, making it the dominant proxy for longitudinal care behavior. The analysis centers on this county while accounting for the broader regional picture.</p>
+
+    <h3>Age as a Structural Predictor</h3>
+    <p>Older patients return at far higher rates regardless of diagnosis category. Patients aged 40&ndash;64 and 65+ consistently dominate multi-visit counts. Young adults (21&ndash;39) represent only 12% of the multi-visit share despite having symptom-based return rates of 83.9% — identifying them as the highest-upside conversion opportunity.</p>
+
+    <table>
+      <thead>
+        <tr><th>Age Group</th><th>ICD-10 Chapter</th><th>% Multiple Visits</th><th>N Patients</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="bold">65+</td><td>M (Musculoskeletal)</td><td class="pos">96.4%</td><td class="dim">10,532</td></tr>
+        <tr><td class="bold">65+</td><td>I (Circulatory)</td><td class="pos">94.2%</td><td class="dim">10,729</td></tr>
+        <tr><td class="bold">40&ndash;64</td><td>M (Musculoskeletal)</td><td class="pos">92.8%</td><td class="dim">13,466</td></tr>
+        <tr><td class="bold">65+</td><td>Z (Routine)</td><td class="pos">91.7%</td><td class="dim">12,248</td></tr>
+        <tr><td class="bold">Children</td><td>Z (Routine)</td><td class="pos">88.5%</td><td class="dim">13,117</td></tr>
+        <tr><td class="bold">Early Adulthood (21&ndash;39)</td><td>R (Symptoms)</td><td class="warn">83.9%</td><td class="dim">14,086</td></tr>
+        <tr><td class="bold">Early Adulthood (21&ndash;39)</td><td>Z (Routine)</td><td class="warn">79.3%</td><td class="dim">18,046</td></tr>
+      </tbody>
+    </table>
+
+    <div class="finding">
+      <strong>Key Finding — Age&nbsp;&times;&nbsp;Diagnosis</strong>
+      The 65+ cohort with musculoskeletal (M) or circulatory (I) diagnoses returns at 94&ndash;96%, effectively demonstrating built-in longitudinal behavior. Children's return rate on routine (Z) codes at 88.5% shows that routine pediatric care is already longitudinal by design. The gap worth closing is early adulthood — high return potential, low follow-through.
+    </div>
+
+    <h3>Diagnosis Category Distributions</h3>
+    <p>Single-visit patients are disproportionately concentrated in routine (Z) and symptom (R) codes — consistent with acute, resolved, or one-time encounters. Multi-visit patients show stronger representation across chronic-management chapters: E (endocrine/diabetes), M (musculoskeletal), I (circulatory), and K (digestive), all conditions requiring sustained management.</p>
+
+    <div class="finding">
+      <strong>Conversion Opportunity</strong>
+      Young adults (21&ndash;39) presenting with R-codes return at 83.9% when they do return — but represent only 12% of the multi-visit share. Post-visit follow-up protocols targeting this cohort could meaningfully increase longitudinal engagement, particularly for patients whose symptom presentations suggest underlying conditions that will recur.
+    </div>
+  </section>
+
+  <!-- 4. Geo -->
+  <section id="geo">
+    <h2>4. Geospatial Access Gap Analysis</h2>
+    <p>Provider addresses were geocoded and assigned to DBSCAN-derived demand clusters. Clusters were scored using the Health Professional Shortage Area (HPSA) standard: clusters with a population-to-provider ratio exceeding 3,500:1 were flagged as access gaps. Six clusters had zero providers entirely.</p>
+
+    <div class="stat-row">
+      <div class="stat"><div class="stat-num warn">24</div><div class="stat-label">Clusters flagged as access gaps</div></div>
+      <div class="stat"><div class="stat-num neg">6</div><div class="stat-label">Clusters with zero providers</div></div>
+      <div class="stat"><div class="stat-num neg">20,000:1</div><div class="stat-label">Worst pop-to-provider ratio</div></div>
+    </div>
+
+    <h3>Gap-Area Patient Outcomes</h3>
+    <p>Patients residing in flagged gap clusters show meaningfully worse continuity outcomes compared to non-gap patients: nearly twice the single-visit chronic rate and a full nine additional days between visits on average.</p>
+
+    <table>
+      <thead>
+        <tr><th>Metric</th><th>Access Gap</th><th>Non-Gap</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Total patients (chronic chapter subset)</td><td class="dim">1,246</td><td class="dim">226,750</td></tr>
+        <tr><td>Single-visit chronic patients (%)</td><td class="neg">39.8%</td><td class="dim">21.7%</td></tr>
+        <tr><td>Average days between visits</td><td class="warn">+9 days</td><td class="dim">baseline</td></tr>
+        <tr><td>Average inter-visit gap</td><td class="neg">172 days</td><td class="dim">163 days</td></tr>
+        <tr><td>SDOH screened (%)</td><td class="warn">14.3%</td><td class="dim">20.0%</td></tr>
+      </tbody>
+    </table>
+
+    <div class="finding alert">
+      <strong>Critical Gap</strong>
+      39.8% of chronic-diagnosis patients in gap clusters appear only once in the SVH system — nearly double the 21.7% rate in adequately served areas. For conditions like diabetes (E) and musculoskeletal disorders (M) requiring ongoing management, this represents a direct care quality failure, not just a preference signal.
+    </div>
+
+    <h3>Priority Clusters</h3>
+    <p>The five highest-priority gap clusters by population-to-provider ratio are Clusters 3, 14, 13, 24, and 4. The six zero-provider clusters should be addressed first for telehealth referral network construction, as even minimal virtual access could begin to close the gap.</p>
+  </section>
+
+  <!-- 5. Hypothesis Testing -->
+  <section id="hyp">
+    <h2>5. Hypothesis Testing</h2>
+    <p>Three chi-square tests were conducted on the patient-level conversion dataset (first observed encounter mapped to total encounter count). All tests used Shawnee County patients with non-missing age group, diagnosis chapter, and admission type.</p>
+
+    <table>
+      <thead>
+        <tr><th>Hypothesis</th><th>Test</th><th>Result</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Age group predicts multi-visit status</td>
+          <td class="dim">χ² across 6 age groups</td>
+          <td class="pos">p &lt; 0.001 ✓</td>
+        </tr>
+        <tr>
+          <td>Symptom (R) vs. routine (Z) diagnoses differ in return rate</td>
+          <td class="dim">χ² 2×2 table</td>
+          <td class="pos">p &lt; 0.001 ✓</td>
+        </tr>
+        <tr>
+          <td>Admission type predicts return likelihood</td>
+          <td class="dim">χ² across admission types</td>
+          <td class="pos">p &lt; 0.001 ✓</td>
+        </tr>
+        <tr>
+          <td>Among R-code patients, younger adults return less than 65+</td>
+          <td class="dim">χ² 2×2 (ages 21&ndash;39 vs 65+)</td>
+          <td class="pos">p &lt; 0.001 ✓</td>
+        </tr>
+        <tr>
+          <td>Among Z-code patients, return rates differ by age group</td>
+          <td class="dim">χ² 4 age groups</td>
+          <td class="pos">p &lt; 0.001 ✓</td>
+        </tr>
+        <tr>
+          <td>Among young adults, R vs. Z diagnosis predicts return</td>
+          <td class="dim">χ² 2×2 restricted sample</td>
+          <td class="pos">p &lt; 0.001 ✓</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="finding">
+      <strong>All six hypotheses confirmed</strong>
+      Age group, diagnosis type, and admission type are each independently and significantly associated with whether a patient returns for additional care. The relationship holds even within narrow subgroups: young adults with symptom codes return at higher rates than those with routine codes, confirming that diagnosis content still matters within demographic segments.
+    </div>
+  </section>
+
+  <!-- 6. SDOH -->
+  <section id="sdoh">
+    <h2>6. Social Determinants as a Fragility Signal</h2>
+    <p>Social determinant screener data covers approximately 6.8% of the full patient population (~64,500 of 947,000 patients), with screening concentrated in Shawnee County due to hospital admission rollout timing. SDOH flags are used as <em>patient-level fragility indicators</em>, not geographic prevalence estimates.</p>
+
+    <h3>Domain Prevalence Among Screened Patients</h3>
+    <table>
+      <thead>
+        <tr><th>Domain</th><th>% Flagged (among answered)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Physical Activity (sedentary)</td><td class="warn">34.4%</td></tr>
+        <tr><td>Stress (rather much / very much)</td><td class="warn">16.5%</td></tr>
+        <tr><td>Utilities Hardship</td><td class="warn">14.2%</td></tr>
+        <tr><td>Financial Resource Strain</td><td class="dim">7.6%</td></tr>
+        <tr><td>Housing Instability</td><td class="dim">6.6%</td></tr>
+        <tr><td>Transportation Needs</td><td class="dim">5.1%</td></tr>
+      </tbody>
+    </table>
+
+    <h3>SDOH Concentration in Gap Areas</h3>
+    <p>Among screened patients in access-gap clusters, SDOH burden is substantially elevated compared to non-gap areas. The dual-burden group (transport and housing combined) is the highest-risk tier for care fragmentation.</p>
+
+    <div class="stat-row two">
+      <div class="stat"><div class="stat-num neg">18.8%</div><div class="stat-label">Any SDOH flag (gap patients)</div></div>
+      <div class="stat"><div class="stat-num neg">6.9%</div><div class="stat-label">Dual burden (gap patients)</div></div>
+    </div>
+
+    <div class="stat-row two">
+      <div class="stat"><div class="stat-num warn">28.6%</div><div class="stat-label">Gap + SDOH with &gt;180d journey gap</div></div>
+      <div class="stat"><div class="stat-num warn">28.8%</div><div class="stat-label">Gap + SDOH who are single-visit</div></div>
+    </div>
+
+    <div class="finding warn">
+      <strong>Fragility Compounding</strong>
+      Patients in gap areas who also carry SDOH flags are more than twice as likely to be single-visit chronic patients as those in adequately-served areas without SDOH burden. Geographic access deficits and social risk are not independent — they cluster on the same patients. Screening coverage in gap areas is only 14.3%, meaning the true burden is likely substantially underestimated.
+    </div>
+
+    <h3>MyChart Engagement as a Proxy</h3>
+    <p>Lower MyChart activation status was associated with higher average social burden scores among screened patients. Since MyChart engagement proxies for how connected a patient is to the SVH ecosystem, this suggests that patients most at risk of discontinuing care are also the hardest to reach through digital channels alone.</p>
+  </section>
+
+  <!-- 7. Recommendations -->
+  <section id="recs">
+    <h2>7. Recommendations</h2>
+
+    <h3>Sustaining Longitudinal Care</h3>
+    <div class="rec-grid">
+      <div class="rec-card">
+        <div class="rec-label">Convert high-return demographics</div>
+        <p>Deepen continuity with the 40&ndash;64 and 65+ cohorts presenting with M, I, and E diagnoses. Already at 92&ndash;96% return rates; the goal is preventing attrition at the margins through proactive follow-up scheduling.</p>
+      </div>
+      <div class="rec-card">
+        <div class="rec-label">Engage young adult single-visit patients</div>
+        <p>Young adults (21&ndash;39) return at 83.9% when presenting with symptoms. Automated post-visit follow-up protocols — particularly for R-code first encounters — represent the highest-upside conversion opportunity.</p>
+      </div>
+      <div class="rec-card">
+        <div class="rec-label">Use routine care as a retention anchor</div>
+        <p>Z-code visits carry high return rates across all age groups. Annual wellness visits position themselves naturally as longitudinal touchpoints. Scheduling the next appointment before discharge from a Z visit costs nothing and measurably improves continuity.</p>
+      </div>
+      <div class="rec-card">
+        <div class="rec-label">SDOH-informed discharge planning</div>
+        <p>For patients flagged with transport or housing barriers, offer telehealth as the default follow-up modality. Schedule the next appointment before discharge. A single care navigator role could address the 172-day average inter-visit gap in gap areas.</p>
+      </div>
+    </div>
+
+    <h3>Addressing Access Gaps</h3>
+    <div class="rec-grid">
+      <div class="rec-card min">
+        <div class="rec-label">Minimum &mdash; Mobile &amp; Telehealth</div>
+        <p>Deploy mobile or satellite clinic units to the top 5 gap clusters (3, 14, 13, 24, 4). Establish a telehealth referral network specifically for E and M chapter patients in the 6 zero-provider clusters. Priority: E and M chronic management patients who are currently single-visit.</p>
+      </div>
+      <div class="rec-card opt">
+        <div class="rec-label">Optimal &mdash; Provider Recruitment</div>
+        <p>Rural incentive programs targeting 1&ndash;2 PCPs per critical gap cluster. Co-locate chronic care and pharmacy services given the high E/M burden in gap areas. Provider recruitment is a multi-year initiative; mobile coverage is the bridge.</p>
+      </div>
+    </div>
+
+    <div class="finding">
+      <strong>Care Navigator Role</strong>
+      Gap-area patients average 172 days between visits — nearly six months. A dedicated care navigator embedded in the gap-cluster outreach program could coordinate scheduling, address SDOH barriers proactively, and reduce the 39.8% single-visit chronic rate that currently characterizes these populations.
+    </div>
+
+    <h3>Expand SDOH Screening</h3>
+    <p>Only 14.3% of gap-area patients are currently screened for social determinants. Expanding screening to hospital admissions and outpatient encounters in gap clusters would surface the estimated ~18.8% of patients carrying transport or housing barriers, enabling targeted intervention before a patient disappears from the system after a first encounter.</p>
+  </section>
+
+  <!-- 8. Limitations -->
+  <section id="limits">
+    <h2>8. Limitations</h2>
+    <p><strong>SDOH selection bias.</strong> Social determinant data covers only ~6.8% of patients, with screening concentrated in Shawnee County hospital admissions. Prevalence estimates cannot be generalized to the full patient population or to rural areas. SDOH flags are patient-level risk signals, not community-level prevalence measurements.</p>
+    <p><strong>Geocoding coverage.</strong> Provider address geocoding was conducted via Census Geocoder batch API with some Non_Exact matches retained. Rural provider locations and recently opened practices may be under-represented.</p>
+    <p><strong>Single-visit definition.</strong> A patient coded as single-visit in this dataset may have sought care elsewhere, or may have had additional encounters not captured in SVH records. "Single-visit" reflects SVH system engagement, not total healthcare utilization.</p>
+    <p><strong>FIPS precision.</strong> Block groups with fewer than 11 patients are coded as *Unspecified per the data documentation, which systematically under-represents rural and sparse-population areas — precisely the areas most likely to contain access gaps.</p>
+    <p><strong>Temporal snapshot.</strong> The dataset represents a static time window. Seasonal patterns, pandemic-era care disruptions, or recent provider recruitment changes are not captured.</p>
+  </section>
+
+  <footer>
+    <span>From First Encounter to Chronic Care &mdash; DataFest 2026</span>
+    <span><a href="https://github.com/ashleyypark05/first-encounter-to-chronic-care">github.com/ashleyypark05/first-encounter-to-chronic-care</a></span>
+  </footer>
+
+</div>
+</body>
+</html>
