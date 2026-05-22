@@ -52,3 +52,19 @@ git clone https://github.com/your-username/datafest-2026-healthcare.git
 cd datafest-2026-healthcare
 pip install -r requirements.txt
 ```
+
+---
+## Data
+
+This project uses the 2026 ASA DataFest dataset provided by Stormont Vail Health. 
+The data is not publicly available and is not included in this repository per competition guidelines.
+
+Files used:
+- `data/encounters.csv`
+- `data/patients.csv`
+- `data/diagnosis.csv`
+- `data/providers.csv`
+- `data/social_determinants.csv`
+- `data/tigercensuscodes.csv`
+
+To reproduce the analysis, place the original DataFest data files in a `data/` folder at the repo root.
