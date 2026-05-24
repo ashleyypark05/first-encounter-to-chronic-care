@@ -68,3 +68,10 @@ Files used:
 - `data/tigercensuscodes.csv`
 
 To reproduce the analysis, place the original DataFest data files in a `data/` folder at the repo root.
+
+---
+
+## Acknowledgements
+
+Submission for ASA DataFest 2026 — Duke University.
+Team: Ashley Park, Jane Shin, Eunice Park, Jennifer Lee.
